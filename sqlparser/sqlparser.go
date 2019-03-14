@@ -21,7 +21,7 @@ func Load(file *os.File, tableName string, cols [][]string) {
 		var input int
 		fmt.Println("Define the type of " + col + " in " + tableName + ": \n1:VARCHAR, 2:INT, 3:FLOAT, 4:DATETIME")
 		fmt.Scanf("%d", &input)
-		for colType[input] == "" {
+		for colType[input-1] == "" {
 			fmt.Println("Invalid type of " + col + " in " + tableName + ", please enter again: \n1:VARCHAR, 2:INT, 3:DOUBLE, 4:DATE, 5:DATETIME, 6:TIMESTAMP")
 			fmt.Scanf("%d", &input)
 		}
@@ -44,7 +44,8 @@ func Load(file *os.File, tableName string, cols [][]string) {
 			case "VARCHAR(50)":
 				file.WriteString("\"" + val + "\"")
 			case "DATETIME":
-				file.WriteString("datetime(" + val + ")")
+				file.WriteString("\"" + val + "\"")
+			// 	file.WriteString("datetime('" + val + "')")
 			default:
 				file.WriteString(val)
 			}
